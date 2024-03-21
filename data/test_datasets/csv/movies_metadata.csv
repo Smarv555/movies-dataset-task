@@ -1,0 +1,10 @@
+id,original_title,genres,release_date
+1,title1,[{'name': 'genre1'}],1995-01-01
+2,title2,[{'name': 'genre2'}],1995-02-01
+3,title3,"[{'name': 'genre1'}, {'name': 'genre2'}]",1995-03-01
+4,title4,"[{'name': 'genre1'}, {'name': 'genre3'}]",2000-04-01
+5,title5,[{'name': 'genre5'}],2010-05-01
+6,title6,[],1995-06
+7,title7,[],
+1,title1,[],
+2,title2,[],

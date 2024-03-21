@@ -30,7 +30,7 @@ def read_csv(file_path: str) -> pd.DataFrame:
         raise error_msg
 
     logger.info(
-        f"The {function_name} method finished successfully. Data frame created from CSV file: {file_path}"
+        f"The {function_name} function finished successfully. Data frame created from CSV file: {file_path}"
     )
     return df
 
@@ -46,22 +46,45 @@ def save_to_json(df: pd.DataFrame, file_path: str) -> None:
         logger.info(
             f"Calling function {function_name} on file {file_path}."
         )
-        df.to_json(path_or_buf=file_path, indent=4)
+        df.to_json(path_or_buf=file_path, indent=4, orient="table", index=False)
     except Exception as error:
         error_msg = f"Error occurred in {function_name} function: {error}"
         logger.error(error_msg)
         raise error_msg
 
     logger.info(
-        f"The {function_name} method finished successfully. Data frame saved to JSON file: {file_path}"
+        f"The {function_name} function finished successfully. Data frame saved to JSON file: {file_path}"
     )
 
 
-def generate_genres_df() -> None:
+def save_to_csv(df: pd.DataFrame, file_path: str) -> None:
+    """
+    Saving Pandas data frame to a CSV file
+    :param df: Pandas data frame to be saved
+    :param file_path: CSV file path where the data frame will be saved
+    """
+    function_name = save_to_json.__name__
+    try:
+        logger.info(
+            f"Calling function {function_name} on file {file_path}."
+        )
+        df.to_csv(path_or_buf=file_path, sep=",", header=True, index=False)
+    except Exception as error:
+        error_msg = f"Error occurred in {function_name} function: {error}"
+        logger.error(error_msg)
+        raise error_msg
+
+    logger.info(
+        f"The {function_name} function finished successfully. Data frame saved to CSV file: {file_path}"
+    )
+
+
+def generate_genres_df(test: bool = None) -> None:
     """
     Generates a new genre data frame grouped by movie id and saves it to a CSV file
     """
-    config_parser = ConfigParser()
+    env = "test" if test else "main"
+    config_parser = ConfigParser(env=env)
     movies_df = read_csv(config_parser.movies_metadata_csv)
     movie_genres_df = pd.DataFrame(
         {
@@ -70,18 +93,66 @@ def generate_genres_df() -> None:
         }
     )
 
-    for ind in movies_df.index:
-        if movies_df["genres"][ind]:
+    for i in movies_df.index:
+        if movies_df["genres"][i]:
             # Converting string to a list
-            genres_list = ast.literal_eval(movies_df["genres"][ind])
+            genres_list = ast.literal_eval(movies_df["genres"][i])
             for genre in genres_list:
                 new_row = {
-                    "id": movies_df["id"][ind],
+                    "id": movies_df["id"][i],
                     "genre_name": genre.get("name")
                 }
                 movie_genres_df = movie_genres_df.append(new_row, ignore_index=True)
 
-    movie_genres_df.to_csv(path_or_buf=config_parser.genres_csv, sep=",", header=True, index=False)
+    save_to_csv(df=movie_genres_df, file_path=config_parser.genres_csv)
+
+
+def generate_test_df() -> None:
+    """
+
+    :return:
+    """
+    config_parser = ConfigParser(env="test")
+    movies_metadata_test_csv = config_parser.movies_metadata_csv
+    ratings_test_csv = config_parser.ratings_csv
+
+    movies_test_data = {
+        "id": [1, 2, 3, 4, 5, 6, 7, 1, 2],
+        "original_title": ["title1", "title2", "title3", "title4", "title5", "title6", "title7", "title1", "title2"],
+        "genres": [
+            "[{'name': 'genre1'}]",
+            "[{'name': 'genre2'}]",
+            "[{'name': 'genre1'}, {'name': 'genre2'}]",
+            "[{'name': 'genre1'}, {'name': 'genre3'}]",
+            "[{'name': 'genre5'}]",
+            "[]",
+            "[]",
+            "[]",
+            "[]"
+        ],
+        "release_date": [
+            "1995-01-01",
+            "1995-02-01",
+            "1995-03-01",
+            "2000-04-01",
+            "2010-05-01",
+            "1995-06",
+            "",
+            "",
+            ""
+        ]
+    }
+
+    ratings_test_data = {
+        "movieId": [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 7],
+        "rating": [2.0, 5.0, 5.0, 2.0, 3.0, 1.0, 1.0, 4.0, 4.0, 1.0, 1.0, 1.0, 5.0, 5.0, 5.0, 5.0, 3.0]
+    }
+
+    movies_test_df = pd.DataFrame(data=movies_test_data)
+    save_to_csv(movies_test_df, file_path=movies_metadata_test_csv)
+
+    ratings_test_df = pd.DataFrame(data=ratings_test_data)
+    save_to_csv(ratings_test_df, file_path=ratings_test_csv)
 
 
 class ConfigParser:
@@ -122,9 +193,9 @@ class ConfigParser:
         Read the config.json file
     """
 
-    def __init__(self):
+    def __init__(self, env):
         # Read config file
-        self.config_json = self.read_config_file()
+        self.config_json = self.read_config_file(env)
         # Set config parser attributes
         self.movies_metadata_csv = os.path.abspath(self.config_json["csv"]["movies_metadata_csv"])
         self.ratings_csv = os.path.abspath(self.config_json["csv"]["ratings_csv"])
@@ -138,7 +209,7 @@ class ConfigParser:
         self.movies_released_by_year_json = os.path.abspath(self.config_json["json"]["movies_released_by_year_json"])
         self.movies_by_genre_json = os.path.abspath(self.config_json["json"]["movies_by_genre_json"])
 
-    def read_config_file(self) -> dict:
+    def read_config_file(self, env) -> dict:
         """
         Read the config.json file
         :return: JSON file with configuration
@@ -148,7 +219,7 @@ class ConfigParser:
                 os.path.dirname(__file__),
                 "..",
                 "config",
-                "config.json"
+                f"config-{env}.json"
             )
             with open(config_file_path, "r", encoding="utf-8") as config_file:
                 config_json = json.load(config_file)
@@ -161,6 +232,10 @@ class ConfigParser:
 
 
 if __name__ == "__main__":
-    config = ConfigParser()
-    print(config.movies_by_genre_json)
-    generate_genres_df()
+    # expected_data = {"movies_count": 5}
+    #
+    # expected_df = pd.DataFrame(data=expected_data, index=[0])
+    # print(expected_df)
+    generate_test_df()
+    generate_genres_df(test=True)
+

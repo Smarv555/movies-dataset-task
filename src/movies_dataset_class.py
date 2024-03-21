@@ -1,6 +1,6 @@
 import pandas as pd
 from pandasql import sqldf
-from utils import (
+from src.utils import (
     logger,
     read_csv,
     save_to_json,
@@ -43,10 +43,12 @@ class MoviesDataSet:
     def __init__(self,
                  movies_file_path: str = None,
                  ratings_file_path: str = None,
-                 genres_file_path: str = None
+                 genres_file_path: str = None,
+                 test: bool = None
                  ):
         # Set config attribute for the file paths configuration
-        self.config = ConfigParser()
+        env = "test" if test else "main"
+        self.config = ConfigParser(env=env)
 
         # Load the movies dataframe from a CSV file
         self.movies_df = read_csv(movies_file_path if movies_file_path else self.config.movies_metadata_csv)
@@ -70,6 +72,7 @@ class MoviesDataSet:
             logger.info(
                 f"Calling {self.__class__.__name__} method {method_name} with query: {query}"
             )
+            # df_query_result = pd.unique(self.movies_df["id"])
             df_query_result = sqldf(query)
         except Exception as error:
             error_msg = f"Error occurred in {method_name} method: {error}"
@@ -145,14 +148,14 @@ class MoviesDataSet:
         """
         method_name = self.get_movies_released_each_year.__name__
         movies_table = self.movies_df
-        query = """
+        query = r"""
             SELECT
             STRFTIME('%Y', release_date) AS year,
-            COUNT(id) AS movies_released
+            COUNT(DISTINCT id) AS movies_released
             FROM movies_table
             WHERE release_date REGEXP '^\d{4}-\d{2}-\d{2}$'
             GROUP BY year
-            ORDER BY movies_released DESC;
+            ORDER BY movies_released DESC, year;
         """
         try:
             logger.info(
@@ -182,7 +185,7 @@ class MoviesDataSet:
             FROM movies_table
             LEFT JOIN genres_table ON movies_table.id = genres_table.id
             GROUP BY genre
-            ORDER BY movies_count DESC;
+            ORDER BY movies_count DESC, genre;
         """
         try:
             logger.info(
@@ -225,6 +228,11 @@ class MoviesDataSet:
 if __name__ == "__main__":
     print("Instantiating MoviesDataSet")
     my_movie_object = MoviesDataSet()
-    print("Starting save_to_json_movies_dataset")
-    my_movie_object.save_to_json_movies_dataset()
-    print("save_to_json_movies_dataset finished")
+    print(my_movie_object.get_movies_count_by_genre())
+    # my_movie_object.save_to_json_movies_dataset()
+    # print(my_movie_object.get_unique_movies())
+    # test_movies_dataset_object = MoviesDataSet(test=True)
+    # print(test_movies_dataset_object.get_unique_movies())
+    # print("Starting save_to_json_movies_dataset")
+    # my_movie_object.save_to_json_movies_dataset()
+    # print("save_to_json_movies_dataset finished")

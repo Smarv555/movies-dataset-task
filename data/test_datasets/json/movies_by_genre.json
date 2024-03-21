@@ -1,0 +1,37 @@
+{
+    "schema":{
+        "fields":[
+            {
+                "name":"genre",
+                "type":"string"
+            },
+            {
+                "name":"movies_count",
+                "type":"integer"
+            }
+        ],
+        "pandas_version":"0.20.0"
+    },
+    "data":[
+        {
+            "genre":"genre1",
+            "movies_count":3
+        },
+        {
+            "genre":"genre2",
+            "movies_count":2
+        },
+        {
+            "genre":null,
+            "movies_count":2
+        },
+        {
+            "genre":"genre5",
+            "movies_count":1
+        },
+        {
+            "genre":"genre3",
+            "movies_count":1
+        }
+    ]
+}

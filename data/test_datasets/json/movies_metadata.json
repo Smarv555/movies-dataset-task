@@ -1,0 +1,79 @@
+{
+    "schema":{
+        "fields":[
+            {
+                "name":"id",
+                "type":"integer"
+            },
+            {
+                "name":"original_title",
+                "type":"string"
+            },
+            {
+                "name":"genres",
+                "type":"string"
+            },
+            {
+                "name":"release_date",
+                "type":"string"
+            }
+        ],
+        "pandas_version":"0.20.0"
+    },
+    "data":[
+        {
+            "id":1,
+            "original_title":"title1",
+            "genres":"[{'name': 'genre1'}]",
+            "release_date":"1995-01-01"
+        },
+        {
+            "id":2,
+            "original_title":"title2",
+            "genres":"[{'name': 'genre2'}]",
+            "release_date":"1995-02-01"
+        },
+        {
+            "id":3,
+            "original_title":"title3",
+            "genres":"[{'name': 'genre1'}, {'name': 'genre2'}]",
+            "release_date":"1995-03-01"
+        },
+        {
+            "id":4,
+            "original_title":"title4",
+            "genres":"[{'name': 'genre1'}, {'name': 'genre3'}]",
+            "release_date":"2000-04-01"
+        },
+        {
+            "id":5,
+            "original_title":"title5",
+            "genres":"[{'name': 'genre5'}]",
+            "release_date":"2010-05-01"
+        },
+        {
+            "id":6,
+            "original_title":"title6",
+            "genres":"[]",
+            "release_date":"1995-06"
+        },
+        {
+            "id":7,
+            "original_title":"title7",
+            "genres":"[]",
+            "release_date":null
+        },
+        {
+            "id":1,
+            "original_title":"title1",
+            "genres":"[]",
+            "release_date":null
+        },
+        {
+            "id":2,
+            "original_title":"title2",
+            "genres":"[]",
+            "release_date":null
+        }
+    ]
+}
