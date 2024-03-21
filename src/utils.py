@@ -1,4 +1,6 @@
+import os
 import ast
+import json
 import logging
 import pandas as pd
 
@@ -7,10 +9,6 @@ logger = logging.getLogger()
 logging.basicConfig(
     filename="movies_dataset_logs.log", format='%(asctime)s:%(levelname)s:%(message)s', level=logging.DEBUG
 )
-
-movies_metadata_file = "../movies_dataset/csv/movies_metadata.csv"
-ratings_file = "../movies_dataset/csv/ratings_small.csv"
-genres_file = "../movies_dataset/csv/genres.csv"
 
 
 def read_csv(file_path: str) -> pd.DataFrame:
@@ -59,12 +57,12 @@ def save_to_json(df: pd.DataFrame, file_path: str) -> None:
     )
 
 
-def generate_genres_df(file_path: str) -> None:
+def generate_genres_df() -> None:
     """
-
-    :return:
+    Generates a new genre data frame grouped by movie id and saves it to a CSV file
     """
-    movies_df = read_csv(movies_metadata_file)
+    config_parser = ConfigParser()
+    movies_df = read_csv(config_parser.movies_metadata_csv)
     movie_genres_df = pd.DataFrame(
         {
             "id": [],
@@ -83,8 +81,86 @@ def generate_genres_df(file_path: str) -> None:
                 }
                 movie_genres_df = movie_genres_df.append(new_row, ignore_index=True)
 
-    movie_genres_df.to_csv(path_or_buf=file_path, sep=",", header=True, index=False)
+    movie_genres_df.to_csv(path_or_buf=config_parser.genres_csv, sep=",", header=True, index=False)
 
 
 class ConfigParser:
-    pass
+    """
+    A class for movies dataset configuration parser
+    ...
+
+    Attributes
+    ----------
+    config_json : dict
+        config dictionary with movies dataset file paths
+    movies_metadata_csv : str
+        movies metadata csv file path
+    ratings_csv : str
+        movie ratings csv file path
+    genres_csv : str
+        movie genres csv file path
+    movies_metadata_json : str
+        movies metadata json file path
+    ratings_json : str
+        movie ratings json file path
+    genres_json : str
+        movie genres json file path
+    unique_movies_json : str
+        unique movies json file path
+    average_movies_rating_json : str
+        average movie ratings json file path
+    top_5_rated_movies_json : str
+        top 5 highest rated movies json file path
+    movies_released_by_year_json : str
+        count of movies released by year json file path
+    movies_by_genre_json : str
+        count of movies by genre json file path
+
+    Methods
+    -------
+    read_config_file():
+        Read the config.json file
+    """
+
+    def __init__(self):
+        # Read config file
+        self.config_json = self.read_config_file()
+        # Set config parser attributes
+        self.movies_metadata_csv = os.path.abspath(self.config_json["csv"]["movies_metadata_csv"])
+        self.ratings_csv = os.path.abspath(self.config_json["csv"]["ratings_csv"])
+        self.genres_csv = os.path.abspath(self.config_json["csv"]["genres_csv"])
+        self.movies_metadata_json = os.path.abspath(self.config_json["json"]["movies_metadata_json"])
+        self.ratings_json = os.path.abspath(self.config_json["json"]["ratings_json"])
+        self.genres_json = os.path.abspath(self.config_json["json"]["genres_json"])
+        self.unique_movies_json = os.path.abspath(self.config_json["json"]["unique_movies_json"])
+        self.average_movies_rating_json = os.path.abspath(self.config_json["json"]["average_movies_rating_json"])
+        self.top_5_rated_movies_json = os.path.abspath(self.config_json["json"]["top_5_rated_movies_json"])
+        self.movies_released_by_year_json = os.path.abspath(self.config_json["json"]["movies_released_by_year_json"])
+        self.movies_by_genre_json = os.path.abspath(self.config_json["json"]["movies_by_genre_json"])
+
+    def read_config_file(self) -> dict:
+        """
+        Read the config.json file
+        :return: JSON file with configuration
+        """
+        try:
+            config_file_path = os.path.join(
+                os.path.dirname(__file__),
+                "..",
+                "config",
+                "config.json"
+            )
+            with open(config_file_path, "r", encoding="utf-8") as config_file:
+                config_json = json.load(config_file)
+        except Exception as error:
+            error_msg = f"Error occurred in {self.read_config_file.__name__} method: {error}"
+            logger.error(error_msg)
+            raise error_msg
+
+        return config_json
+
+
+if __name__ == "__main__":
+    config = ConfigParser()
+    print(config.movies_by_genre_json)
+    generate_genres_df()

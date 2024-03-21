@@ -1,0 +1,17 @@
+{
+  "csv": {
+    "movies_metadata_csv": "../movies_dataset/csv/movies_metadata.csv",
+    "ratings_csv": "../movies_dataset/csv/ratings_small.csv",
+    "genres_csv": "../movies_dataset/csv/genres.csv"
+  },
+  "json": {
+    "movies_metadata_json": "../movies_dataset/json/movies_metadata.json",
+    "ratings_json": "../movies_dataset/json/ratings.json",
+    "genres_json": "../movies_dataset/json/genres.json",
+    "unique_movies_json": "../movies_dataset/json/unique_movies.json",
+    "average_movies_rating_json": "../movies_dataset/json/average_movies_rating.json",
+    "top_5_rated_movies_json": "../movies_dataset/json/top_5_rated_movies.json",
+    "movies_released_by_year_json": "../movies_dataset/json/movies_released_by_year.json",
+    "movies_by_genre_json": "../movies_dataset/json/movies_by_genre.json"
+  }
+}
