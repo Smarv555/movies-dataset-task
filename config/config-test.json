@@ -1,17 +1,17 @@
 {
   "csv": {
-    "movies_metadata_csv": "../data/test_datasets/csv/movies_metadata.csv",
-    "ratings_csv": "../data/test_datasets/csv/ratings_small.csv",
-    "genres_csv": "../data/test_datasets/csv/genres.csv"
+    "movies_metadata_csv": "./data/test_datasets/csv/movies_metadata.csv",
+    "ratings_csv": "./data/test_datasets/csv/ratings_small.csv",
+    "genres_csv": "./data/test_datasets/csv/genres.csv"
   },
   "json": {
-    "movies_metadata_json": "../data/test_datasets/json/movies_metadata.json",
-    "ratings_json": "../data/test_datasets/json/ratings.json",
-    "genres_json": "../data/test_datasets/json/genres.json",
-    "unique_movies_json": "../data/test_datasets/json/unique_movies.json",
-    "average_movies_rating_json": "../data/test_datasets/json/average_movies_rating.json",
-    "top_5_rated_movies_json": "../data/test_datasets/json/top_5_rated_movies.json",
-    "movies_released_by_year_json": "../data/test_datasets/json/movies_released_by_year.json",
-    "movies_by_genre_json": "../data/test_datasets/json/movies_by_genre.json"
+    "movies_metadata_json": "./data/test_datasets/json/movies_metadata.json",
+    "ratings_json": "./data/test_datasets/json/ratings.json",
+    "genres_json": "./data/test_datasets/json/genres.json",
+    "unique_movies_json": "./data/test_datasets/json/unique_movies.json",
+    "average_movies_rating_json": "./data/test_datasets/json/average_movies_rating.json",
+    "top_5_rated_movies_json": "./data/test_datasets/json/top_5_rated_movies.json",
+    "movies_released_by_year_json": "./data/test_datasets/json/movies_released_by_year.json",
+    "movies_by_genre_json": "./data/test_datasets/json/movies_by_genre.json"
   }
 }

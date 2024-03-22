@@ -23,7 +23,6 @@ def read_csv(file_path: str) -> pd.DataFrame:
             f"Calling function {function_name} on file {file_path}."
         )
         df = pd.read_csv(filepath_or_buffer=file_path, header=0, low_memory=False)
-        df = df.convert_dtypes(infer_objects=True)
     except Exception as error:
         error_msg = f"Error occurred in {function_name} function: {error}"
         logger.error(error_msg)
@@ -82,10 +81,12 @@ def save_to_csv(df: pd.DataFrame, file_path: str) -> None:
 def generate_genres_df(test: bool = None) -> None:
     """
     Generates a new genre data frame grouped by movie id and saves it to a CSV file
+    :param test: Boolean value. If true the test_dataset location will be used instead of movies_dataset
     """
     env = "test" if test else "main"
     config_parser = ConfigParser(env=env)
     movies_df = read_csv(config_parser.movies_metadata_csv)
+    # Creating empty df for the new genres table
     movie_genres_df = pd.DataFrame(
         {
             "id": [],
@@ -93,24 +94,27 @@ def generate_genres_df(test: bool = None) -> None:
         }
     )
 
+    # Looping through the movies metadata rows
     for i in movies_df.index:
         if movies_df["genres"][i]:
             # Converting string to a list
             genres_list = ast.literal_eval(movies_df["genres"][i])
+            # Looping through the genres dictionaries in the list
             for genre in genres_list:
                 new_row = {
                     "id": movies_df["id"][i],
                     "genre_name": genre.get("name")
                 }
+                # Adding the new row with movie id and genre name to the genres df
                 movie_genres_df = movie_genres_df.append(new_row, ignore_index=True)
 
+    # Saving the new genres df as CSV
     save_to_csv(df=movie_genres_df, file_path=config_parser.genres_csv)
 
 
 def generate_test_df() -> None:
     """
-
-    :return:
+    Generating test datasets for the unit tests
     """
     config_parser = ConfigParser(env="test")
     movies_metadata_test_csv = config_parser.movies_metadata_csv
@@ -212,6 +216,7 @@ class ConfigParser:
     def read_config_file(self, env) -> dict:
         """
         Read the config.json file
+        :param env: A string indicating which config file to be used. It could be either 'main' or 'test'.
         :return: JSON file with configuration
         """
         try:
@@ -229,13 +234,3 @@ class ConfigParser:
             raise error_msg
 
         return config_json
-
-
-if __name__ == "__main__":
-    # expected_data = {"movies_count": 5}
-    #
-    # expected_df = pd.DataFrame(data=expected_data, index=[0])
-    # print(expected_df)
-    generate_test_df()
-    generate_genres_df(test=True)
-

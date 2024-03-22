@@ -10,7 +10,7 @@ from src.utils import (
 
 class MoviesDataSet:
     """
-    A class for movies dataset configuration parser
+    A class for movies dataset loading and operations
     ...
 
     Attributes
@@ -72,7 +72,6 @@ class MoviesDataSet:
             logger.info(
                 f"Calling {self.__class__.__name__} method {method_name} with query: {query}"
             )
-            # df_query_result = pd.unique(self.movies_df["id"])
             df_query_result = sqldf(query)
         except Exception as error:
             error_msg = f"Error occurred in {method_name} method: {error}"
@@ -223,16 +222,3 @@ class MoviesDataSet:
             raise error_msg
 
         logger.info(f"The {method_name} method finished successfully.")
-
-
-if __name__ == "__main__":
-    print("Instantiating MoviesDataSet")
-    my_movie_object = MoviesDataSet()
-    print(my_movie_object.get_movies_count_by_genre())
-    # my_movie_object.save_to_json_movies_dataset()
-    # print(my_movie_object.get_unique_movies())
-    # test_movies_dataset_object = MoviesDataSet(test=True)
-    # print(test_movies_dataset_object.get_unique_movies())
-    # print("Starting save_to_json_movies_dataset")
-    # my_movie_object.save_to_json_movies_dataset()
-    # print("save_to_json_movies_dataset finished")

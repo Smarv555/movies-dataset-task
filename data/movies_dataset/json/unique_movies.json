@@ -1,5 +1,16 @@
 {
-    "movies_count":{
-        "0":45436
-    }
+    "schema":{
+        "fields":[
+            {
+                "name":"movies_count",
+                "type":"integer"
+            }
+        ],
+        "pandas_version":"0.20.0"
+    },
+    "data":[
+        {
+            "movies_count":45436
+        }
+    ]
 }

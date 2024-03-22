@@ -1,72 +1,149 @@
 {
-    "genre":{
-        "0":"Drama",
-        "1":"Comedy",
-        "2":"Thriller",
-        "3":"Romance",
-        "4":"Action",
-        "5":"Horror",
-        "6":"Crime",
-        "7":"Documentary",
-        "8":"Adventure",
-        "9":"Science Fiction",
-        "10":"Family",
-        "11":"Mystery",
-        "12":null,
-        "13":"Fantasy",
-        "14":"Animation",
-        "15":"Foreign",
-        "16":"Music",
-        "17":"History",
-        "18":"War",
-        "19":"Western",
-        "20":"TV Movie",
-        "21":"Vision View Entertainment",
-        "22":"The Cartel",
-        "23":"Telescene Film Group Productions",
-        "24":"Sentai Filmworks",
-        "25":"Rogue State",
-        "26":"Pulser Productions",
-        "27":"Odyssey Media",
-        "28":"Mardock Scramble Production Committee",
-        "29":"GoHands",
-        "30":"Carousel Productions",
-        "31":"BROSTA TV",
-        "32":"Aniplex"
+    "schema":{
+        "fields":[
+            {
+                "name":"genre",
+                "type":"string"
+            },
+            {
+                "name":"movies_count",
+                "type":"integer"
+            }
+        ],
+        "pandas_version":"0.20.0"
     },
-    "movies_count":{
-        "0":20244,
-        "1":13176,
-        "2":7619,
-        "3":6730,
-        "4":6592,
-        "5":4671,
-        "6":4304,
-        "7":3930,
-        "8":3490,
-        "9":3044,
-        "10":2767,
-        "11":2464,
-        "12":2442,
-        "13":2309,
-        "14":1931,
-        "15":1619,
-        "16":1597,
-        "17":1398,
-        "18":1322,
-        "19":1042,
-        "20":766,
-        "21":1,
-        "22":1,
-        "23":1,
-        "24":1,
-        "25":1,
-        "26":1,
-        "27":1,
-        "28":1,
-        "29":1,
-        "30":1,
-        "31":1,
-        "32":1
-    }
+    "data":[
+        {
+            "genre":"Drama",
+            "movies_count":20244
+        },
+        {
+            "genre":"Comedy",
+            "movies_count":13176
+        },
+        {
+            "genre":"Thriller",
+            "movies_count":7619
+        },
+        {
+            "genre":"Romance",
+            "movies_count":6730
+        },
+        {
+            "genre":"Action",
+            "movies_count":6592
+        },
+        {
+            "genre":"Horror",
+            "movies_count":4671
+        },
+        {
+            "genre":"Crime",
+            "movies_count":4304
+        },
+        {
+            "genre":"Documentary",
+            "movies_count":3930
+        },
+        {
+            "genre":"Adventure",
+            "movies_count":3490
+        },
+        {
+            "genre":"Science Fiction",
+            "movies_count":3044
+        },
+        {
+            "genre":"Family",
+            "movies_count":2767
+        },
+        {
+            "genre":"Mystery",
+            "movies_count":2464
+        },
+        {
+            "genre":null,
+            "movies_count":2442
+        },
+        {
+            "genre":"Fantasy",
+            "movies_count":2309
+        },
+        {
+            "genre":"Animation",
+            "movies_count":1931
+        },
+        {
+            "genre":"Foreign",
+            "movies_count":1619
+        },
+        {
+            "genre":"Music",
+            "movies_count":1597
+        },
+        {
+            "genre":"History",
+            "movies_count":1398
+        },
+        {
+            "genre":"War",
+            "movies_count":1322
+        },
+        {
+            "genre":"Western",
+            "movies_count":1042
+        },
+        {
+            "genre":"TV Movie",
+            "movies_count":766
+        },
+        {
+            "genre":"Aniplex",
+            "movies_count":1
+        },
+        {
+            "genre":"BROSTA TV",
+            "movies_count":1
+        },
+        {
+            "genre":"Carousel Productions",
+            "movies_count":1
+        },
+        {
+            "genre":"GoHands",
+            "movies_count":1
+        },
+        {
+            "genre":"Mardock Scramble Production Committee",
+            "movies_count":1
+        },
+        {
+            "genre":"Odyssey Media",
+            "movies_count":1
+        },
+        {
+            "genre":"Pulser Productions",
+            "movies_count":1
+        },
+        {
+            "genre":"Rogue State",
+            "movies_count":1
+        },
+        {
+            "genre":"Sentai Filmworks",
+            "movies_count":1
+        },
+        {
+            "genre":"Telescene Film Group Productions",
+            "movies_count":1
+        },
+        {
+            "genre":"The Cartel",
+            "movies_count":1
+        },
+        {
+            "genre":"Vision View Entertainment",
+            "movies_count":1
+        }
+    ]
 }
