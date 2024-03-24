@@ -7,9 +7,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "movies-dataset-task-Stanislav-Tsanev"
-version = "0.0.1"
+version = "0.0.3"
 authors = [
-  { name="Stanislav", email="s.tsanev95@abv.bg" },
+  { name="Stanislav Tsanev", email="s.tsanev95@abv.bg" },
 ]
 description = "Movies Dataset Task"
 readme = "README.md"
