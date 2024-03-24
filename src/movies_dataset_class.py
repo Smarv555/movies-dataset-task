@@ -1,6 +1,6 @@
 import pandas as pd
 from pandasql import sqldf
-from src.utils import (
+from utils import (
     logger,
     read_csv,
     save_to_json,
