@@ -78,10 +78,10 @@ def save_to_csv(df: pd.DataFrame, file_path: str) -> None:
     )
 
 
-def generate_genres_df(test: bool = None) -> None:
+def generate_genres_df(test: bool = False) -> None:
     """
     Generates a new genre data frame grouped by movie id and saves it to a CSV file
-    :param test: Boolean value. If true the test_dataset location will be used instead of movies_dataset
+    :param test: Boolean value, False by default. If true the test_dataset location will be used instead of movies_dataset
     """
     env = "test" if test else "main"
     config_parser = ConfigParser(env=env)

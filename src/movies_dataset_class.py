@@ -44,7 +44,7 @@ class MoviesDataSet:
                  movies_file_path: str = None,
                  ratings_file_path: str = None,
                  genres_file_path: str = None,
-                 test: bool = None
+                 test: bool = False
                  ):
         # Set config attribute for the file paths configuration
         env = "test" if test else "main"
